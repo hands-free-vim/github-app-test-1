@@ -25,6 +25,7 @@ jobs:
           # persist-credentials: false
       - name: Prepare GPG
         run: |
+          mkdir -p ~/.gnupg
           echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
           gpgconf --reload gpg-agent
       - name: Configure GPG Key
