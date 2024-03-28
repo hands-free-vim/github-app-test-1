@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "test" >foo
+date >foo
 git add foo
 git commit -m "Add foo"
 git log
