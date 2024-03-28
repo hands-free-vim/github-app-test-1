@@ -23,17 +23,17 @@ jobs:
           repository: hands-free-vim/github-app-test-1
           fetch-depth: 0
           # persist-credentials: false
-      - name: Prepare GPG
-        run: |
-          mkdir -p ~/.gnupg
-          chmod 700 ~/.gnupg
-          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
-          gpgconf --reload gpg-agent
       - name: Configure GPG Key
         run: |
-          echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --pinentry-mode loopback --import
+          echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
         env:
           GPG_SIGNING_KEY: ${{ secrets.BOT_GPG_SIGNING_KEY }}
+      - name: Set github url and credentials
+        run: |
+          /usr/bin/git config --global --add url."https://${{ steps.githubAppAuth.outputs.access-token }}:x-oauth-basic@github".insteadOf ssh://git@github
+          /usr/bin/git config --global --add url."https://${{ steps.githubAppAuth.outputs.access-token }}:x-oauth-basic@github".insteadOf https://github
+          /usr/bin/git config --global --add url."https://${{ steps.githubAppAuth.outputs.access-token }}:x-oauth-basic@github".insteadOf git@github
+
       - name: git config
         run: |
           git config user.name hands-free-vim-bot
@@ -44,6 +44,6 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ steps.githubAppAuth.outputs.access-token }}
+          # github_token: ${{ steps.githubAppAuth.outputs.access-token }}
           repository: hands-free-vim/github-app-test-1
           # force_with_lease: true
