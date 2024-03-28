@@ -39,7 +39,7 @@ jobs:
       - name: git config
         run: |
           git config user.name hands-free-vim-bot
-          git config user.email hands-free-vim-bot.ydczn@passmail.net
+          git config user.email 862675+hands-free-vim-bot[bot]@users.noreply.github.com
           git config user.signingkey D13230A2E34373A0
           git config commit.gpgsign true
       - run: bash -x scripts/deploy-talon-nvim.sh
