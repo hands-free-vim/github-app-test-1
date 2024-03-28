@@ -2,9 +2,9 @@ name: Deploy
 
 # FIXME: This should be based on tests passing once we have tests
 on:
-    push:
-        branches:
-          - main
+  push:
+    branches:
+      - main
 
 jobs:
   push-talon-nvim:
@@ -20,7 +20,9 @@ jobs:
           app-private-key: ${{ secrets.BOT_PRIVATE_KEY }}
       - uses: actions/checkout@v3
         with:
+          repository: hands-free-vim/github-app-test-1
           fetch-depth: 0
+          # persist-credentials: false
           token: ${{ steps.githubAppAuth.outputs.access-token }}
       - name: Configure GPG Key
         run: |
