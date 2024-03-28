@@ -31,7 +31,7 @@ jobs:
           gpgconf --reload gpg-agent
       - name: Configure GPG Key
         run: |
-          echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --pin-entry-mode loopback --import
+          echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --pinentry-mode loopback --import
         env:
           GPG_SIGNING_KEY: ${{ secrets.BOT_GPG_SIGNING_KEY }}
       - name: git config
