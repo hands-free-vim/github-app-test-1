@@ -23,16 +23,12 @@ jobs:
           repository: hands-free-vim/github-app-test-1
           fetch-depth: 0
           # persist-credentials: false
+          token: ${{ steps.githubAppAuth.outputs.access-token }}
       - name: Configure GPG Key
         run: |
           echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
         env:
           GPG_SIGNING_KEY: ${{ secrets.BOT_GPG_SIGNING_KEY }}
-      - name: Set github url and credentials
-        run: |
-          /usr/bin/git config --global --add url."https://${{ steps.githubAppAuth.outputs.access-token }}:x-oauth-basic@github".insteadOf ssh://git@github
-          /usr/bin/git config --global --add url."https://${{ steps.githubAppAuth.outputs.access-token }}:x-oauth-basic@github".insteadOf https://github
-          /usr/bin/git config --global --add url."https://${{ steps.githubAppAuth.outputs.access-token }}:x-oauth-basic@github".insteadOf git@github
 
       - name: git config
         run: |
