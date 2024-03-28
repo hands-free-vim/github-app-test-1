@@ -23,7 +23,6 @@ jobs:
           repository: hands-free-vim/github-app-test-1
           fetch-depth: 0
           # persist-credentials: false
-          token: ${{ steps.githubAppAuth.outputs.access-token }}
       - name: Configure GPG Key
         run: |
           echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
@@ -36,3 +35,9 @@ jobs:
           git config user.signingkey D8EF158B8AA24259
           git config commit.gpgsign true
       - run: bash -x scripts/deploy-talon-nvim.sh
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          token: ${{ steps.githubAppAuth.outputs.access-token }}
+          repository: hands-free-vim/github-app-test-1
+          # force_with_lease: true
