@@ -46,6 +46,6 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ steps.githubAppAuth.outputs.access-token }}
+          #github_token: ${{ steps.githubAppAuth.outputs.access-token }}
           repository: hands-free-vim/github-app-test-1
           # force_with_lease: true
